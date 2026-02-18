@@ -1,5 +1,4 @@
 const express = require("express");
-// const bodyParser = require("body-parser"); /* deprecated */
 const cors = require("cors");
 
 const app = express();
@@ -9,21 +8,18 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// parse requests of content-type - application/json
-app.use(express.json()); /* bodyParser.json() is deprecated */
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is deprecated */
-
-// simple route
+// Root route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "HELLO ATHARVA" });
 });
 
+// Tutorial routes
 require("./app/routes/tutorial.routes.js")(app);
 
-// set port, listen for requests
+// Start server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
